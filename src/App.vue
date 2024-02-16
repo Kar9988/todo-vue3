@@ -1,26 +1,24 @@
-<template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
+<script setup>
+import NavBarComponent from "@/components/partials/NavBarComponent.vue";
+import {onBeforeMount} from "vue";
+import { useAuthStore } from '@/store/auth'
+const authStore = useAuthStore()
+onBeforeMount(() => {
+  authStore.getAuthUser()
+      .catch(e => {
+    console.log(e);
+  })
+})
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
 </script>
 
+<template>
+  <NavBarComponent/>
+  <div class="pt-16">
+    <router-view/>
+  </div>
+</template>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
